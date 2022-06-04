@@ -95,51 +95,51 @@ const OrderScreen = ({ match, history }) => {
     <Message variant="danger">{error}</Message>
   ) : (
     <>
-      <h1>Order {order._id}</h1>
+      <h1>Comanda {order._id}</h1>
       <Row>
         <Col md={8}>
           <ListGroup variant="flush">
             <ListGroup.Item>
-              <h2>Shipping</h2>
+              <h2>Livrare</h2>
               <p>
-                <strong>Name: </strong> {order.user.name}
+                <strong>Nume: </strong> {order.user.name}
               </p>
               <p>
                 <strong>Email: </strong>{" "}
                 <a href={`mailto:${order.user.email}`}>{order.user.email}</a>
               </p>
               <p>
-                <strong>Address:</strong>
+                <strong>Adresa:</strong>
                 {order.shippingAddress.address}, {order.shippingAddress.city}{" "}
                 {order.shippingAddress.postalCode},{" "}
                 {order.shippingAddress.country}
               </p>
               {order.isDelivered ? (
                 <Message variant="success">
-                  Delivered on {order.deliveredAt}
+                  Livrata in {order.deliveredAt}
                 </Message>
               ) : (
-                <Message variant="danger">Not Delivered</Message>
+                <Message variant="danger">Comanda nu este livrata</Message>
               )}
             </ListGroup.Item>
 
             <ListGroup.Item>
-              <h2>Payment Method</h2>
+              <h2>Metoda de plata</h2>
               <p>
-                <strong>Method: </strong>
+                <strong>Metoda: </strong>
                 {order.paymentMethod}
               </p>
               {order.isPaid ? (
-                <Message variant="success">Paid on {order.paidAt}</Message>
+                <Message variant="success">Platita in {order.paidAt}</Message>
               ) : (
-                <Message variant="danger">Not Paid</Message>
+                <Message variant="danger">Neplatita</Message>
               )}
             </ListGroup.Item>
 
             <ListGroup.Item>
-              <h2>Order Items</h2>
+              <h2>Lista produse</h2>
               {order.orderItems.length === 0 ? (
-                <Message>Order is empty</Message>
+                <Message>Comanda nu are produse</Message>
               ) : (
                 <ListGroup variant="flush">
                   {order.orderItems.map((item, index) => (
@@ -173,30 +173,30 @@ const OrderScreen = ({ match, history }) => {
           <Card>
             <ListGroup variant="flush">
               <ListGroup.Item>
-                <h2>Order Summary</h2>
+                <h2>Comanda</h2>
               </ListGroup.Item>
               <ListGroup.Item>
                 <Row>
-                  <Col>Items</Col>
-                  <Col>${order.itemsPrice}</Col>
+                  <Col>Produse</Col>
+                  <Col>{order.itemsPrice} RON</Col>
                 </Row>
               </ListGroup.Item>
               <ListGroup.Item>
                 <Row>
-                  <Col>Shipping</Col>
-                  <Col>${order.shippingPrice}</Col>
+                  <Col>Livrare</Col>
+                  <Col>{order.shippingPrice} RON</Col>
                 </Row>
               </ListGroup.Item>
               <ListGroup.Item>
                 <Row>
-                  <Col>Tax</Col>
-                  <Col>${order.taxPrice}</Col>
+                  <Col>Taxe aditionale</Col>
+                  <Col>{order.taxPrice} RON</Col>
                 </Row>
               </ListGroup.Item>
               <ListGroup.Item>
                 <Row>
                   <Col>Total</Col>
-                  <Col>${order.totalPrice}</Col>
+                  <Col>{order.totalPrice} RON</Col>
                 </Row>
               </ListGroup.Item>
               {!order.isPaid && (
@@ -223,7 +223,7 @@ const OrderScreen = ({ match, history }) => {
                       className="btn btn-block"
                       onClick={deliverHandler}
                     >
-                      Mark As Delivered
+                      Marcheaza ca livrata
                     </Button>
                   </ListGroup.Item>
                 )}

@@ -59,7 +59,7 @@ const ProfileScreen = ({ location, history }) => {
         <h2>User Profile</h2>
         {message && <Message variant='danger'>{message}</Message>}
         {}
-        {success && <Message variant='success'>Profile Updated</Message>}
+        {success && <Message variant='success'>Profilul a fost updatat cu succes.</Message>}
         {loading ? (
           <Loader />
         ) : error ? (
@@ -67,7 +67,7 @@ const ProfileScreen = ({ location, history }) => {
         ) : (
           <Form onSubmit={submitHandler}>
             <Form.Group controlId='name'>
-              <Form.Label>Name</Form.Label>
+              <Form.Label>Nume</Form.Label>
               <Form.Control
                 type='name'
                 placeholder='Enter name'
@@ -77,7 +77,7 @@ const ProfileScreen = ({ location, history }) => {
             </Form.Group>
 
             <Form.Group controlId='email'>
-              <Form.Label>Email Address</Form.Label>
+              <Form.Label>Adresa Email</Form.Label>
               <Form.Control
                 type='email'
                 placeholder='Enter email'
@@ -87,7 +87,7 @@ const ProfileScreen = ({ location, history }) => {
             </Form.Group>
 
             <Form.Group controlId='password'>
-              <Form.Label>Password</Form.Label>
+              <Form.Label>Parola</Form.Label>
               <Form.Control
                 type='password'
                 placeholder='Enter password'
@@ -97,7 +97,7 @@ const ProfileScreen = ({ location, history }) => {
             </Form.Group>
 
             <Form.Group controlId='confirmPassword'>
-              <Form.Label>Confirm Password</Form.Label>
+              <Form.Label>Confirma Parola</Form.Label>
               <Form.Control
                 type='password'
                 placeholder='Confirm password'
@@ -107,13 +107,13 @@ const ProfileScreen = ({ location, history }) => {
             </Form.Group>
 
             <Button type='submit' variant='primary'>
-              Update
+              Modifica
             </Button>
           </Form>
         )}
       </Col>
       <Col md={9}>
-        <h2>My Orders</h2>
+        <h2>Comenzile mele</h2>
         {loadingOrders ? (
           <Loader />
         ) : errorOrders ? (
@@ -123,10 +123,10 @@ const ProfileScreen = ({ location, history }) => {
             <thead>
               <tr>
                 <th>ID</th>
-                <th>DATE</th>
+                <th>Data</th>
                 <th>TOTAL</th>
-                <th>PAID</th>
-                <th>DELIVERED</th>
+                <th>PLATITA</th>
+                <th>LIVRATA</th>
                 <th></th>
               </tr>
             </thead>
@@ -153,7 +153,7 @@ const ProfileScreen = ({ location, history }) => {
                   <td>
                     <LinkContainer to={`/order/${order._id}`}>
                       <Button className='btn-sm' variant='light'>
-                        Details
+                        Detalii
                       </Button>
                     </LinkContainer>
                   </td>
