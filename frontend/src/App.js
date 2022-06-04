@@ -1,5 +1,5 @@
 import React from 'react'
-import { BrowserRouter as Router, Route } from 'react-router-dom'
+import { BrowserRouter as Router, Redirect, Route } from 'react-router-dom'
 import { Container } from 'react-bootstrap'
 import Header from './components/Header'
 import Footer from './components/Footer'
@@ -18,6 +18,7 @@ import UserEditScreen from './screens/UserEditScreen'
 import ProductListScreen from './screens/ProductListScreen'
 import ProductEditScreen from './screens/ProductEditScreen'
 import OrderListScreen from './screens/OrderListScreen'
+import ProductFilterScreen from './screens/ProductFilterScreen'
 
 const App = () => {
   return (
@@ -56,6 +57,10 @@ const App = () => {
             exact
           />
           <Route path='/' component={HomeScreen} exact />
+          <Route path="/products-filter" component={ProductFilterScreen} exact />
+          <Route path="*">
+            <Redirect to="/" />
+          </Route>
         </Container>
       </main>
       <Footer />
