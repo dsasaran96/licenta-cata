@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { Row, Col } from "react-bootstrap";
+import { Row, Col, Container } from "react-bootstrap";
 import Product from "../components/Product";
 import Message from "../components/Message";
 import Loader from "../components/Loader";
@@ -13,16 +13,14 @@ import { listProducts } from "../actions/productActions";
 const HomeScreen = ({ match }) => {
   const keyword = match.params.keyword;
 
-  const pageNumber = match.params.pageNumber || 1;
-
   const dispatch = useDispatch();
 
   const productList = useSelector((state) => state.productList);
   const { loading, error, products, page, pages } = productList;
 
   useEffect(() => {
-    dispatch(listProducts(keyword, pageNumber));
-  }, [dispatch, keyword, pageNumber]);
+    dispatch(listProducts(keyword));
+  }, [dispatch, keyword]);
 
   return (
     <>
@@ -34,7 +32,11 @@ const HomeScreen = ({ match }) => {
           Inapoi la cumparaturi
         </Link>
       )}
-      <h1>Noutati</h1>
+      <Row>
+        <Col>
+          <h1>{keyword ? "Rezultate:" : "Noutati"}</h1>
+        </Col>
+      </Row>
       {loading ? (
         <Loader />
       ) : error ? (
@@ -42,7 +44,7 @@ const HomeScreen = ({ match }) => {
       ) : (
         <>
           <Row>
-            {products.map((product) => (
+            {products.slice(0, 4).map((product) => (
               <Col key={product._id} sm={12} md={6} lg={4} xl={3}>
                 <Product product={product} />
               </Col>
@@ -55,6 +57,43 @@ const HomeScreen = ({ match }) => {
           />
         </>
       )}
+      {!keyword && (
+        <Row>
+          <Col>
+            <h1>Cele mai bune recenzii</h1>
+          </Col>
+        </Row>
+      )}
+      {loading ? (
+        <Loader />
+      ) : error ? (
+        <Message variant="danger">{error}</Message>
+      ) : (
+        !keyword && (
+          <>
+            <Row>
+              {products
+                .sort((a, b) => b.rating - a.rating)
+                .slice(0, 4)
+                .map((product) => (
+                  <Col key={product._id} sm={12} md={6} lg={4} xl={3}>
+                    <Product product={product} />
+                  </Col>
+                ))}
+            </Row>
+            <Paginate
+              pages={pages}
+              page={page}
+              keyword={keyword ? keyword : ""}
+            />
+          </>
+        )
+      )}
+      <Container className="align-middle">
+        <Row className="align-items-center">
+          <Link to="/products">Vezi Toate Produsele</Link>
+        </Row>
+      </Container>
     </>
   );
 };
