@@ -57,10 +57,10 @@ const App = () => {
             exact
           />
           <Route path='/' component={HomeScreen} exact />
-          <Route path="/products-filter" component={ProductFilterScreen} exact />
-          <Route path="*">
+          <Route path="/products" component={ProductFilterScreen} exact />
+          {/* <Route path="*">
             <Redirect to="/" />
-          </Route>
+          </Route> */}
         </Container>
       </main>
       <Footer />
