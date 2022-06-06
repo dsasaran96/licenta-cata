@@ -45,18 +45,12 @@ if (process.env.NODE_ENV === "production") {
   );
 } else {
   app.get("/", (req, res) => {
-    res.send("API is running....");
+    res.sendFile(path.join(publicPath, "index.html"));
   });
 }
 
 app.use(notFound);
 app.use(errorHandler);
-
-const publicPath = path.join(__dirname, "..", "public");
-app.use(express.static(publicPath));
-app.get("*", (req, res) => {
-  res.sendFile(path.join(publicPath, "index.html"));
-});
 
 const PORT = process.env.PORT || 5000;
 

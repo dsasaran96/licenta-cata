@@ -72,14 +72,15 @@ const HomeScreen = ({ match }) => {
         !keyword && (
           <>
             <Row>
-              {products
-                .sort((a, b) => b.rating - a.rating)
-                .slice(0, 4)
-                .map((product) => (
-                  <Col key={product._id} sm={12} md={6} lg={4} xl={3}>
-                    <Product product={product} />
-                  </Col>
-                ))}
+              {products &&
+                products
+                  .sort((a, b) => b.rating - a.rating)
+                  .slice(0, 4)
+                  .map((product) => (
+                    <Col key={product._id} sm={12} md={6} lg={4} xl={3}>
+                      <Product product={product} />
+                    </Col>
+                  ))}
             </Row>
             <Paginate
               pages={pages}
