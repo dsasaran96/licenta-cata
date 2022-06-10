@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { Row, Col, Container } from "react-bootstrap";
@@ -11,6 +11,9 @@ import Meta from "../components/Meta";
 import { listProducts } from "../actions/productActions";
 
 const HomeScreen = ({ match }) => {
+  const [productsNumber, setProductsNumber] = useState(
+    (window.innerWidth <= 992 || window.innerWidht) >= 1200 ? 4 : 3
+  );
   const keyword = match.params.keyword;
 
   const dispatch = useDispatch();
@@ -21,6 +24,18 @@ const HomeScreen = ({ match }) => {
   useEffect(() => {
     dispatch(listProducts(keyword));
   }, [dispatch, keyword]);
+
+  useEffect(() => {
+    let width;
+    window.addEventListener("resize", () => {
+      width = window.innerWidth;
+      if (width <= 992 || width >= 1200) {
+        setProductsNumber(4);
+      } else {
+        setProductsNumber(3);
+      }
+    });
+  }, []);
 
   return (
     <>
@@ -44,11 +59,15 @@ const HomeScreen = ({ match }) => {
       ) : (
         <>
           <Row>
-            {products.slice(0, 4).map((product) => (
-              <Col key={product._id} sm={12} md={6} lg={4} xl={3}>
-                <Product product={product} />
-              </Col>
-            ))}
+            {products &&
+              products
+                .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+                .slice(0, productsNumber)
+                .map((product) => (
+                  <Col key={product._id} sm={12} md={6} lg={4} xl={3}>
+                    <Product product={product} />
+                  </Col>
+                ))}
           </Row>
           <Paginate
             pages={pages}
@@ -60,7 +79,7 @@ const HomeScreen = ({ match }) => {
       {!keyword && (
         <Row>
           <Col>
-            <h1>Cele mai bune recenzii</h1>
+            <h1>Cele mai populare produse</h1>
           </Col>
         </Row>
       )}
@@ -74,8 +93,8 @@ const HomeScreen = ({ match }) => {
             <Row>
               {products &&
                 products
-                  .sort((a, b) => b.rating - a.rating)
-                  .slice(0, 4)
+                  .sort((a, b) => b.numReviews - a.numReviews)
+                  .slice(0, productsNumber)
                   .map((product) => (
                     <Col key={product._id} sm={12} md={6} lg={4} xl={3}>
                       <Product product={product} />
@@ -91,8 +110,10 @@ const HomeScreen = ({ match }) => {
         )
       )}
       <Container className="align-middle">
-        <Row className="align-items-center">
-          <Link to="/products">Vezi Toate Produsele</Link>
+        <Row className="align-items-center see-all-button-container">
+          <Link to="/products">
+            <div className="see-all-button">Vezi Toate Produsele</div>
+          </Link>
         </Row>
       </Container>
     </>
