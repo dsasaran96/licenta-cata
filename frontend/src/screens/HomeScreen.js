@@ -11,9 +11,7 @@ import Meta from "../components/Meta";
 import { listProducts } from "../actions/productActions";
 
 const HomeScreen = ({ match }) => {
-  const [productsNumber, setProductsNumber] = useState(
-    (window.innerWidth <= 992 || window.innerWidht) >= 1200 ? 4 : 3
-  );
+  const [productsNumber, setProductsNumber] = useState(0);
   const keyword = match.params.keyword;
 
   const dispatch = useDispatch();
