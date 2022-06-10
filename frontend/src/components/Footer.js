@@ -21,7 +21,7 @@ const Footer = () => {
             <div className="text-center py-3 align-middle gap-between">
               <i className="fa-brands fa-instagram brand-icon"></i>
               <i className="fa-brands fa-facebook brand-icon"></i>
-              <i class="fa-brands fa-twitter brand-icon"></i>
+              <i className="fa-brands fa-twitter brand-icon"></i>
             </div>
           </Col>
         </Row>

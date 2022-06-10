@@ -68,8 +68,7 @@ const ProductEditScreen = ({ match, history }) => {
       };
 
       const { data } = await axios.post(
-        `${BASE_URL}
-        /api/upload`,
+        `${BASE_URL}/api/upload`,
         formData,
         config
       );
