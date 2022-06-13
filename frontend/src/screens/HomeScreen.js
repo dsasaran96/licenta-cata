@@ -5,13 +5,12 @@ import { Row, Col, Container } from "react-bootstrap";
 import Product from "../components/Product";
 import Message from "../components/Message";
 import Loader from "../components/Loader";
-import Paginate from "../components/Paginate";
 import ProductCarousel from "../components/ProductCarousel";
 import Meta from "../components/Meta";
 import { listProducts } from "../actions/productActions";
 
 const HomeScreen = ({ match }) => {
-  const [productsNumber, setProductsNumber] = useState(0);
+  const [productsNumber, setProductsNumber] = useState(4);
   const keyword = match.params.keyword;
 
   const dispatch = useDispatch();
@@ -22,18 +21,6 @@ const HomeScreen = ({ match }) => {
   useEffect(() => {
     dispatch(listProducts(keyword));
   }, [dispatch, keyword]);
-
-  useEffect(() => {
-    let width;
-    window.addEventListener("resize", () => {
-      width = window.innerWidth;
-      if (width <= 992 || width >= 1200) {
-        setProductsNumber(4);
-      } else {
-        setProductsNumber(3);
-      }
-    });
-  }, []);
 
   return (
     <>
@@ -60,7 +47,7 @@ const HomeScreen = ({ match }) => {
             {products &&
               products
                 .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
-                .slice(0, productsNumber)
+                .slice(0, 4)
                 .map((product) => (
                   <Col key={product._id} sm={12} md={6} lg={4} xl={3}>
                     <Product product={product} />
@@ -92,18 +79,18 @@ const HomeScreen = ({ match }) => {
               {products &&
                 products
                   .sort((a, b) => b.numReviews - a.numReviews)
-                  .slice(0, productsNumber)
+                  .slice(0, 4)
                   .map((product) => (
                     <Col key={product._id} sm={12} md={6} lg={4} xl={3}>
                       <Product product={product} />
                     </Col>
                   ))}
             </Row>
-            <Paginate
+            {/* <Paginate
               pages={pages}
               page={page}
               keyword={keyword ? keyword : ""}
-            />
+            /> */}
           </>
         )
       )}
