@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { Row, Col, Container } from "react-bootstrap";
@@ -10,13 +10,12 @@ import Meta from "../components/Meta";
 import { listProducts } from "../actions/productActions";
 
 const HomeScreen = ({ match }) => {
-  const [productsNumber, setProductsNumber] = useState(4);
   const keyword = match.params.keyword;
 
   const dispatch = useDispatch();
 
   const productList = useSelector((state) => state.productList);
-  const { loading, error, products, page, pages } = productList;
+  const { loading, error, products } = productList;
 
   useEffect(() => {
     dispatch(listProducts(keyword));
